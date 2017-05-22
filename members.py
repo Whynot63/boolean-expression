@@ -1,6 +1,6 @@
 class FormulaMember:
-    def __str__(self):
-        return self.symbol
+    #def __str__(self):
+    #    return self.symbol
 
     def eval(self, *args):
         return int(self.truth_table(*[a.eval() for a in args]))

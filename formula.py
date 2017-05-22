@@ -1,3 +1,5 @@
+import itertools
+
 import util
 import factory
 
@@ -41,10 +43,18 @@ class Formula:
                 raise NotImplementedError
 
     def eval(self):
-        for var in factory.variables.values():
-            if var.value is None:
-                var.set_value(input('{} = '.format(var)))
         return int(self.polish_notation[0].eval(*self.polish_notation[1:]))
+
+    @property
+    def truth_table(self):
+        variations = itertools.product([0, 1], repeat=len(factory.variables))
+        truth_table = []
+
+        for variable in variations:
+            for var, value in zip(factory.variables, variable):
+                factory.variables[var].set_value(value)
+            truth_table.append([variable, self.eval()])
+        return truth_table
 
     def __str__(self):
         return "({})".format(' '.join([str(member) for member in self.formula]))
