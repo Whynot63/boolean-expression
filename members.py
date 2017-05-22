@@ -3,7 +3,7 @@ class FormulaMember:
         return self.symbol
 
     def eval(self, *args):
-        return self.truth_table(*[a.eval() for a in args])
+        return int(self.truth_table(*[a.eval() for a in args]))
 
 
 class Atom(FormulaMember):

@@ -44,7 +44,7 @@ class Formula:
         for var in factory.variables.values():
             if var.value is None:
                 var.set_value(input('{} = '.format(var)))
-        return self.polish_notation[0].eval(*self.polish_notation[1:])
+        return int(self.polish_notation[0].eval(*self.polish_notation[1:]))
 
     def __str__(self):
         return "({})".format(' '.join([str(member) for member in self.formula]))
