@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 tests = [
     ['0', 0],
     ['1', 1],
@@ -19,27 +21,16 @@ tests = [
 
     ['(0 OR (NOT 1 AND 0)) AND (NOT 0 OR 0)', 0],
     ['(0 OR NOT (1 AND 0)) AND (NOT 0 OR 0)', 1],
-]
 
-examples = [
-    #'(a OR b AND (NOT c OR a)) AND (b OR NOT c)'
-    'NOT b OR (NOT a OR b)'
+    ['NOT 0 OR (NOT 0 OR 0)', 1],
 ]
 
 from formula import Formula
 
 if __name__ == "__main__":
-    for test in tests:
+    for i, test in enumerate(tests):
         problem, answer = test
 
         f = Formula(problem)
-        print('{} -> {}'.format(problem, f))
-
-        template = '{:%dd} -> {:<%dd}' % (len(problem), len(str(f)))
-        print(template.format(answer, f.eval()), end='\n\n')
         assert f.eval() == answer
-
-    for example in examples:
-        f = Formula(example)
-        print(list(map(str, f.polish_notation)))
-        print('{} = {}'.format(example, f.eval()))
+        print('{}/{} passed...'.format(i + 1, len(tests)))
